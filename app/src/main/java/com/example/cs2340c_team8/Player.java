@@ -14,6 +14,9 @@ public class Player implements Weapon, PowerUp, Level, Key, Point {
     private List<PowerUp> powerUps;
     private List<Consumable> consumables;
 
+    private float x; //for x positioning
+    private float y; //for y positioning
+
     private Player() {
         health = 100;
         time = 0;
@@ -22,6 +25,8 @@ public class Player implements Weapon, PowerUp, Level, Key, Point {
         points = 0;
         powerUps = new ArrayList<>();
         consumables = new ArrayList<>();
+        x = 0; //likely need to change based on grid positioning
+        y = 0; //likely need to change based on grid positioning
     }
 
     public static  Player getInstance() {
@@ -89,6 +94,41 @@ public class Player implements Weapon, PowerUp, Level, Key, Point {
         // Implement point amount logic
         return points;
     }
+
+    private float getX() { //for positioning
+        return x;
+    }
+    private float getY() { //for positioning
+        return y;
+    }
+
+    private void setX(float X) { //for positioning
+        this.x = x;
+    }
+    private void setY(float Y) { //for positioning
+        this.y = y;
+    }
+
+    /**
+     * isCollding will check if player and wall collide based on their positions.
+     * @param player represents the player (controlled by user).
+     * @param wall represents the list of walls.
+     */
+    public static boolean isColliding(Player player, Wall wall) {
+        double distanceX = wall.getX() - player.getX();
+        double distanceY = wall.getY() - player.getY();
+        double distanceXFormula = Math.pow(distanceX, 2);
+        double distanceYFormula = Math.pow(distanceY, 2);
+        //Below line finds the distance between the player and wall
+        double distance = Math.sqrt(distanceXFormula + distanceYFormula);
+
+        if (distance < 5) { //just putting '5' for now b/c '1' might cause player to phase past wall
+            return true;
+        } else {
+            return false;
+        }
+    } //isColliding
+
 
     // Implement other methods from the interfaces as needed
 }
