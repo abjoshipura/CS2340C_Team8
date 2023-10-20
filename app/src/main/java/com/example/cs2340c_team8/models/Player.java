@@ -130,7 +130,7 @@ public class Player implements Weapon, PowerUp, Level, Key, Point {
         //Below line finds the distance between the player and wall
         double distance = Math.sqrt(distanceXFormula + distanceYFormula);
 
-        if (distance < 5) { //just putting '5' for now b/c '1' might cause player to phase past wall
+        if (distance < wall.getWidth()) { //if distance less wall width, considered a collision
             return true;
         } else {
             return false;
