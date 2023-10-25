@@ -29,7 +29,7 @@ public class Player implements Weapon, PowerUp, Level, Key, Point {
     private int x; //for x positioning
     private int y; //for y positioning
 
-    private Player() {
+    public Player() {
         health = 100;
         time = 0;
         weapons = new ArrayList<>();
