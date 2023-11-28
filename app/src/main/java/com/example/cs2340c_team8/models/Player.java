@@ -124,10 +124,7 @@ public class Player {
         double distanceY = wall.getY() - player.getStartY();
         double distanceXFormula = Math.pow(distanceX, 2);
         double distanceYFormula = Math.pow(distanceY, 2);
-        //Below line finds the distance between the player and wall
         double distance = Math.sqrt(distanceXFormula + distanceYFormula);
-
-        //just putting '5' for now b/c '1' might cause player to phase past wall
         return distance < 5;
     }
 }

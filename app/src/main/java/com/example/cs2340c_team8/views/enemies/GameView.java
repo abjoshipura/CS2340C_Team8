@@ -39,13 +39,21 @@ public class GameView extends View {
     private int calls = 0;
     private boolean gameCompleted;
     private static boolean levelChanged;
-    private int scalar = 11111111;
-    private int keyOneX = 176 * (scalar);
-    private int keyOneY = 464 * (scalar);
-    private int keyTwoX = 320 * (scalar);
-    private int keyTwoY = 32 * (scalar);
-    private int keyThreeX = 400 * (scalar);
-    private int keyThreeY = 384 * (scalar);
+    private double scalar = 0.5;
+    private int keyOneX = (int) (176 * (scalar));
+    private int keyOneY = (int) (464 * (scalar));
+    private int keyTwoX = (int) (320 * (scalar));
+    private int keyTwoY = (int) (32 * (scalar));
+    private int keyThreeX = (int) (400 * (scalar));
+    private int keyThreeY = (int) (384 * (scalar));
+    private Bitmap fireball = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
+    public static boolean isFireballThrown = false;
+    private static int fireballX;
+    private static int fireballY;
+    public static boolean firstGoombaExists;
+    public static boolean firstShellExists;
+    public static boolean firstBulletBillExists;
+    public static boolean firstKoopaTroopaExists;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -69,10 +77,26 @@ public class GameView extends View {
 
         if (currentMap == 1) {
             canvas.drawBitmap(map, scaleMap(), null);
-            canvas.drawBitmap(goomba, scaleGoomba(firstGoomba), null);
-            canvas.drawBitmap(koopaTroopa, scaleKoopa(firstKoopaTroopa), null);
-            canvas.drawBitmap(bulletBill, scaleBullet(firstBulletBill), null);
-            canvas.drawBitmap(shell, scaleShell(firstShell), null);
+            if (firstGoombaExists) {
+                canvas.drawBitmap(goomba, scaleGoomba(firstGoomba), null);
+            } else {
+                firstGoomba = new Goomba(goomba, 0, 500, true, 0);
+            }
+            if (firstKoopaTroopaExists) {
+                canvas.drawBitmap(koopaTroopa, scaleKoopa(firstKoopaTroopa), null);
+            } else {
+                firstKoopaTroopa = new KoopaTroopa(koopaTroopa, 700, 0, true, 0);
+            }
+            if (firstBulletBillExists) {
+                canvas.drawBitmap(bulletBill, scaleBullet(firstBulletBill), null);
+            } else {
+                firstBulletBill = new BulletBill(bulletBill, 800, 0, 10, 0);
+            }
+            if (firstShellExists) {
+                canvas.drawBitmap(shell, scaleShell(firstShell), null);
+            } else {
+                firstShell = new PiranhaPlant(0, 400, 410, 0);
+            }
             canvas.drawBitmap(playerBitmap, scalePlayer(player), null);
             firstGoomba.moveEnemy();
             firstKoopaTroopa.moveEnemy();
@@ -80,10 +104,26 @@ public class GameView extends View {
             firstShell.moveEnemy();
         } else if (currentMap == 2) {
             canvas.drawBitmap(map, scaleMap(), null);
-            canvas.drawBitmap(goomba, scaleGoomba(firstGoomba), null);
-            canvas.drawBitmap(koopaTroopa, scaleKoopa(firstKoopaTroopa), null);
-            canvas.drawBitmap(bulletBill, scaleBullet(firstBulletBill), null);
-            canvas.drawBitmap(shell, scaleShell(firstShell), null);
+            if (firstGoombaExists) {
+                canvas.drawBitmap(goomba, scaleGoomba(firstGoomba), null);
+            } else {
+                firstGoomba = new Goomba(goomba, 0, 500, true, 0);
+            }
+            if (firstKoopaTroopaExists) {
+                canvas.drawBitmap(koopaTroopa, scaleKoopa(firstKoopaTroopa), null);
+            } else {
+                firstKoopaTroopa = new KoopaTroopa(koopaTroopa, 700, 0, true, 0);
+            }
+            if (firstBulletBillExists) {
+                canvas.drawBitmap(bulletBill, scaleBullet(firstBulletBill), null);
+            } else {
+                firstBulletBill = new BulletBill(bulletBill, 800, 0, 10, 0);
+            }
+            if (firstShellExists) {
+                canvas.drawBitmap(shell, scaleShell(firstShell), null);
+            } else {
+                firstShell = new PiranhaPlant(0, 400, 410, 0);
+            }
             canvas.drawBitmap(playerBitmap, scalePlayer(player), null);
             firstGoomba.moveEnemy();
             firstKoopaTroopa.moveEnemy();
@@ -91,15 +131,40 @@ public class GameView extends View {
             firstShell.moveEnemy();
         } else if (currentMap == 3) {
             canvas.drawBitmap(map, scaleMap(), null);
-            canvas.drawBitmap(goomba, scaleGoomba(firstGoomba), null);
-            canvas.drawBitmap(koopaTroopa, scaleKoopa(firstKoopaTroopa), null);
-            canvas.drawBitmap(bulletBill, scaleBullet(firstBulletBill), null);
-            canvas.drawBitmap(shell, scaleShell(firstShell), null);
+            if (firstGoombaExists) {
+                canvas.drawBitmap(goomba, scaleGoomba(firstGoomba), null);
+            } else {
+                firstGoomba = new Goomba(goomba, 0, 500, true, 0);
+            }
+            if (firstKoopaTroopaExists) {
+                canvas.drawBitmap(koopaTroopa, scaleKoopa(firstKoopaTroopa), null);
+            } else {
+                firstKoopaTroopa = new KoopaTroopa(koopaTroopa, 700, 0, true, 0);
+            }
+            if (firstBulletBillExists) {
+                canvas.drawBitmap(bulletBill, scaleBullet(firstBulletBill), null);
+            } else {
+                firstBulletBill = new BulletBill(bulletBill, 800, 0, 10, 0);
+            }
+            if (firstShellExists) {
+                canvas.drawBitmap(shell, scaleShell(firstShell), null);
+            } else {
+                firstShell = new PiranhaPlant(0, 400, 410, 0);
+            }
             canvas.drawBitmap(playerBitmap, scalePlayer(player), null);
             firstGoomba.moveEnemy();
             firstKoopaTroopa.moveEnemy();
             firstBulletBill.moveEnemy();
             firstShell.moveEnemy();
+        }
+
+        if (isFireballThrown) {
+            if (fireballX < player.getStartX() + 160) {
+                canvas.drawBitmap(fireball, scaleFireball(fireballX, fireballY), null);
+                fireballX++;
+            } else {
+                isFireballThrown = false;
+            }
         }
 
         if (isLevelOver(player.getStartX(), player.getStartY())) {
@@ -116,6 +181,10 @@ public class GameView extends View {
     }
 
     public void createMapThree() {
+        firstBulletBillExists = true;
+        firstKoopaTroopaExists = true;
+        firstShellExists = true;
+        firstGoombaExists = true;
         map = BitmapFactory.decodeResource(getResources(), R.drawable.map3);
         goomba = BitmapFactory.decodeResource(getResources(), R.drawable.goomba);
         koopaTroopa = BitmapFactory.decodeResource(getResources(), R.drawable.koopa_troopa);
@@ -142,6 +211,10 @@ public class GameView extends View {
     }
 
     public void createMapTwo() {
+        firstBulletBillExists = true;
+        firstKoopaTroopaExists = true;
+        firstShellExists = true;
+        firstGoombaExists = true;
         map = BitmapFactory.decodeResource(getResources(), R.drawable.map2);
         goomba = BitmapFactory.decodeResource(getResources(), R.drawable.goomba);
         koopaTroopa = BitmapFactory.decodeResource(getResources(), R.drawable.koopa_troopa);
@@ -166,6 +239,10 @@ public class GameView extends View {
     }
 
     public void createMapOne() {
+        firstBulletBillExists = true;
+        firstKoopaTroopaExists = true;
+        firstShellExists = true;
+        firstGoombaExists = true;
         map = BitmapFactory.decodeResource(getResources(), R.drawable.map1);
         goomba = BitmapFactory.decodeResource(getResources(), R.drawable.goomba);
         koopaTroopa = BitmapFactory.decodeResource(getResources(), R.drawable.koopa_troopa);
@@ -292,6 +369,13 @@ public class GameView extends View {
         return enemyMatrix;
     }
 
+    public Matrix scaleFireball(int x, int y) {
+        Matrix enemyMatrix = new Matrix();
+        enemyMatrix.setScale(scale, scale);
+        enemyMatrix.postTranslate(x * scale, y * scale);
+        return enemyMatrix;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = resolveSize(800, widthMeasureSpec);
@@ -310,11 +394,6 @@ public class GameView extends View {
         return true;
     }
 
-    public static void throwFireball() {
-        int fireballX = player.getStartX() + 60;
-        int fireballY = player.getStartY();
-    }
-
     public boolean isGameCompleted() {
         return gameCompleted;
     }
@@ -325,5 +404,18 @@ public class GameView extends View {
 
     public static void setLevelChanged(boolean levelChanged1) {
         levelChanged = levelChanged1;
+    }
+
+    public static void setFireballPosition() {
+        fireballX = player.getStartX() + 60;
+        fireballY = player.getStartY();
+    }
+
+    public static int getFireballX() {
+        return fireballX;
+    }
+
+    public static int getFireballY() {
+        return fireballY;
     }
 }

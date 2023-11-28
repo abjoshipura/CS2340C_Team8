@@ -1,6 +1,7 @@
 package com.example.cs2340c_team8.views.activities;
 
-import static com.example.cs2340c_team8.views.enemies.GameView.throwFireball;
+import static com.example.cs2340c_team8.views.enemies.GameView.isFireballThrown;
+import static com.example.cs2340c_team8.views.enemies.GameView.setFireballPosition;
 import static java.lang.System.currentTimeMillis;
 
 import android.content.Intent;
@@ -99,7 +100,8 @@ public class DungeonActivity extends AppCompatActivity {
         attackEnemy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                throwFireball();
+                setFireballPosition();
+                isFireballThrown = true;
             }
         });
     }
