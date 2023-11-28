@@ -1,8 +1,13 @@
 // Package declaration
 package com.example.cs2340c_team8.views.activities;
 
+<<<<<<< HEAD
 // Import statements for required Android classes and libraries
 import static com.example.cs2340c_team8.views.enemies.GameView.throwFireball;
+=======
+import static com.example.cs2340c_team8.views.enemies.GameView.isFireballThrown;
+import static com.example.cs2340c_team8.views.enemies.GameView.setFireballPosition;
+>>>>>>> 8d479fcd7bd8eacf706dffabf4a681e193bfcd47
 import static java.lang.System.currentTimeMillis;
 
 import android.content.Intent;
@@ -113,7 +118,8 @@ public class DungeonActivity extends AppCompatActivity {
         attackEnemy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                throwFireball();
+                setFireballPosition();
+                isFireballThrown = true;
             }
         });
     }

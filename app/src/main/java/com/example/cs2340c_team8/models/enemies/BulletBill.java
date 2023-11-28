@@ -1,6 +1,9 @@
 package com.example.cs2340c_team8.models.enemies;
 
 import static com.example.cs2340c_team8.views.enemies.GameView.bulletBillKB;
+import static com.example.cs2340c_team8.views.enemies.GameView.firstBulletBillExists;
+import static com.example.cs2340c_team8.views.enemies.GameView.getFireballX;
+import static com.example.cs2340c_team8.views.enemies.GameView.getFireballY;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;
@@ -68,10 +71,19 @@ public class BulletBill implements Enemy {
         if (startX <= endingX) {
             startX = startingX;
         }
-
+        if (isCollidingWithFireball()) {
+            firstBulletBillExists = false;
+        }
         if (isCollidingWithPlayer()) {
             attackPlayer();
         }
+    }
+
+    public boolean isCollidingWithFireball() {
+        int overlapWidth = Math.min(endX, getFireballX() + 48) - Math.max(startX, getFireballX());
+        int overlapHeight = Math.min(endY, getFireballY() + 48) - Math.max(startY, getFireballY());
+
+        return (overlapWidth > 3 && overlapHeight > 3);
     }
 
     @Override
